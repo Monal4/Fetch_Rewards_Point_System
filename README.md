@@ -43,5 +43,16 @@ endpoints:
     http://localhost:9004/deduct/5000
     returns the list of vendors from which the points are spent and throws balance of insufficient funds if amount exceeds owned points.
     
-    
+   Screenshots are added in root directory that tests all the endpoints.......................................
 
+-----------------------------------------------------------------------------------------
+
+viewing in-memory database:
+
+run the application then navigate to http://localhost:9004/h2-console.
+add driverclass: org.h2.Driver
+add jdbc url: jdbc:h2:mem:transactionsdb
+add username: sa
+add password: password
+
+as hibernate will map entity class to database table.
