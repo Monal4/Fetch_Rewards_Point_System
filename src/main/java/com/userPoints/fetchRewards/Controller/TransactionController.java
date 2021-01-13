@@ -52,8 +52,6 @@ public class TransactionController {
 			
 			transactions.forEach((t) -> service.addPoints(t) );
 		} else {
-			System.out.println(payer +" " + points + " " + date);
-			
 			Transaction transaction = new Transaction();
 			transaction.setPayer(payer);
 			transaction.setPoints(points);

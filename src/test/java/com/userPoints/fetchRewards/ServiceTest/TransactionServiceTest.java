@@ -24,6 +24,11 @@ import com.userPoints.fetchRewards.Service.TransactionService;
 import com.userPoints.fetchRewards.Service.TransactionServiceImpl;
 import com.userPoints.fetchRewards.TransactionException.TransactionException;
 
+/*
+ * 
+ * Testing for service layer which in turn also mocks repository layer
+ * 
+ * */
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 public class TransactionServiceTest {
@@ -46,6 +51,12 @@ public class TransactionServiceTest {
 	List<Transaction> t = new ArrayList<>();
 	Transaction transaction = new Transaction();
 	
+	
+	/*
+	 * 
+	 * mocking repository methods to return expected outputs
+	 * 
+	 * */
 	@Before
 	public void setup() {
 		
@@ -75,11 +86,21 @@ public class TransactionServiceTest {
 		return transaction;
 	}
 	
+	/*
+	 * 
+	 * getting balance
+	 * 
+	 * */
 	@Test
 	public void getPointsTest() {
 		Assert.assertNotEquals("You do not have any points", service.getPoints());
 	}
 	
+	/*
+	 * 
+	 * adding point
+	 * 
+	 * */
 	@Test
 	public void addingPointTest() {
 		
@@ -88,6 +109,12 @@ public class TransactionServiceTest {
 		Assert.assertEquals(500, points);
 	}
 	
+	
+	/*
+	 * 
+	 * deducting points and updating balance
+	 * 
+	 * */
 	@Test
 	public void deductPointsTest() {
 		List<String> x = service.deductPoints(300);

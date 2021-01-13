@@ -6,7 +6,7 @@ import java.util.List;
 import com.userPoints.fetchRewards.Entity.Transaction;
 
 /*
- * interface to achieve polymorphism and reusability
+ * interface to achieve polymorphism
  * */
 public interface TransactionService {
 	

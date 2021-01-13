@@ -62,7 +62,7 @@ public class TransactionRepositoryImpl implements TransactionRepository{
 	}
 
 	/*
-	 * used intesting custom transaction
+	 * used in testing custom transaction
 	 * */
 	@Override
 	public void removeTransaction(String Id) {

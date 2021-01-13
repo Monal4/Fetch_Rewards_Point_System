@@ -31,6 +31,11 @@ import com.userPoints.fetchRewards.Service.TransactionService;
 
 import junit.framework.Assert;
 
+/*
+ * 
+ * testing controller endpoints
+ * 
+ * */
 
 @WebMvcTest
 @RunWith(SpringRunner.class)
@@ -45,6 +50,12 @@ public class TransactionControllerTest {
 	@MockBean
 	TransactionRepository repository;
 	
+	
+	/*
+	 * 
+	 * adding custom transaction before running test
+	 * 
+	 * */
 	@Before
 	public void setUp() {
 		Transaction t = new Transaction();
@@ -61,6 +72,12 @@ public class TransactionControllerTest {
 		repository.removeTransaction("2003TEST");
 	}
 	
+	
+	/*
+	 * 
+	 * testing get balance end point
+	 * 
+	 * */
 	@Test
 	public void getBalance() throws Exception{
 		mockmvc.perform(
@@ -72,6 +89,11 @@ public class TransactionControllerTest {
 		verify(service).getPoints();
 	}
 	
+	/*
+	 * 
+	 * testing add point endpoint
+	 * 
+	 * */
 	@Test
 	public void addPoints() throws Exception {
 		mockmvc.perform(
@@ -82,6 +104,11 @@ public class TransactionControllerTest {
 		);
 	}
 	
+	/*
+	 * 
+	 * testing deduct points endpoint
+	 * 
+	 * */
 	@Test
 	public void deductPointTest() throws Exception{
 		mockmvc.perform(
@@ -91,6 +118,11 @@ public class TransactionControllerTest {
 		);
 	}
 	
+	/*
+	 * 
+	 * date conversion test
+	 * 
+	 * */
 	@Test
 	public void testconvertStringToDate() {
 		
