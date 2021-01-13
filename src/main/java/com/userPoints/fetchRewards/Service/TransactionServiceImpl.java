@@ -16,12 +16,30 @@ import com.userPoints.fetchRewards.TransactionException.ResourceNotFoundExceptio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+/*
+ * @Transactional
+ * 
+ * these are hibernate transactions that guarantee roll back whenever
+ * we have any exception if it is database related or custom one
+ * changes will not be saved to database when rolled back hence we have needed 
+ * concistencty and the changes are commited once all instructions are executed successfully
+ * 
+ * */
+
 @Service
 public class TransactionServiceImpl implements TransactionService{
 	
 	@Autowired
 	private TransactionRepository repository;
 	
+	/*
+	 * 
+	 * 
+	 * "/balance" Get request is directed to getPoints method
+	 * 
+	 * 
+	 * */
 	@Transactional
 	public List<String> getPoints(){
 		
@@ -32,6 +50,13 @@ public class TransactionServiceImpl implements TransactionService{
 		return result;
 	}
 	
+	/*
+	 * 
+	 * 
+	 * "/points" Post request is directed to addPoints method
+	 * 
+	 * 
+	 * */
 	@Transactional
 	public int addPoints(Transaction t) {
 		
@@ -63,6 +88,12 @@ public class TransactionServiceImpl implements TransactionService{
 		return -1;
 	}
 	
+	/*
+	 * 
+	 * "/deduct/(Integer points)" Get request is directed to deductPoints method
+	 * 
+	 * 
+	 * */
 	@Transactional
 	public List<String> deductPoints(Integer points) {
 		

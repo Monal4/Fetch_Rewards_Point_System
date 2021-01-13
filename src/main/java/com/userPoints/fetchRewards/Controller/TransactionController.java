@@ -22,9 +22,15 @@ import com.userPoints.fetchRewards.Service.TransactionService;
 @RestController
 public class TransactionController {
 	
+	/*
+	 * dependency injection of TransactionService interface
+	 * */
 	@Autowired
 	private TransactionService service;
 	
+	/*
+	 * endpoint for getting most updated balance per vendor
+	 * */
 	@GetMapping(value="/balance", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<String> getBalance() {
 		
@@ -33,6 +39,9 @@ public class TransactionController {
 	
 	//Test URL
 	//http://localhost:9004/point?Payer=Test&Points=3000&Date=1/12+2PM
+	/*
+	 * endpoint for adding points or default ones
+	 * */
 	@PostMapping(value="/point")
 	public void addPoints( @RequestParam(value="Payer",required=false) String payer,
 							@RequestParam(value="Points",required=false) Integer points,
@@ -54,12 +63,19 @@ public class TransactionController {
 		}
 	}
 	
+	/*
+	 * endpoint for deducting points
+	 * */
 	@GetMapping(value="/deduct/{points}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<String> deductPoints(@PathVariable(value="points") Integer points) {
 		
 		return service.deductPoints(points);
 	}
 	
+	/*
+	 * custom method adding transactions to db if there is no value present on out points call
+	 * this can be removed once we have an actual endpoint sending us the data
+	 * */
 	public static List<Transaction> fillDefault() {
 		List<Transaction> transactions = new ArrayList<>();
 		
@@ -96,6 +112,11 @@ public class TransactionController {
 		return transactions;
 	}
 	
+	
+	/*
+	 * these three methods are used to convert incoming date data to 
+	 * proper date format for fetching and ordering later
+	 * */
 	public static Date convertDateFormat(String date) {
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
 		

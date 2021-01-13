@@ -7,7 +7,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.OrderBy;
+
+/*
+ * 
+ * 
+ * used jpa annotations and hibernate to map java object to a database table
+ * table genetrates automated ID's using UUID class
+ * 
+ * 
+ * @Column maps field to columns in a db table
+ * 
+ * */
 
 @Entity
 public class Transaction {

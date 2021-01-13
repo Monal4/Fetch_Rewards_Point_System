@@ -18,6 +18,10 @@ public class TransactionRepositoryImpl implements TransactionRepository{
 	@PersistenceContext
 	EntityManager entityManager;
 	
+	
+	/*
+	 * query for grouping points based on vendors
+	 * */
 	@Override
 	public List<String> getBalance() {
 		
@@ -35,6 +39,15 @@ public class TransactionRepositoryImpl implements TransactionRepository{
 		return values;
 	}
 
+	
+	/*
+	 * 
+	 * 
+	 *checks if the vendor with id exists then we will simply update the row
+	 *or we will insert new vendor with points and date of entry
+	 * 
+	 * 
+	 * */
 	@Override
 	public int addTransaction(Transaction transaction) {
 		
@@ -48,6 +61,9 @@ public class TransactionRepositoryImpl implements TransactionRepository{
 		return transaction.getPoints();
 	}
 
+	/*
+	 * used intesting custom transaction
+	 * */
 	@Override
 	public void removeTransaction(String Id) {
 		Transaction t = entityManager.find(Transaction.class, Id);
@@ -56,6 +72,10 @@ public class TransactionRepositoryImpl implements TransactionRepository{
 		}
 	}
 
+	
+	/*
+	 * get sorted transactions for deduction
+	 * */
 	@Override
 	public List<Transaction> getSortedTransactions() {
 		Query query = entityManager.createQuery("SELECT t FROM Transaction t ORDER BY t.date ASC", Transaction.class);
