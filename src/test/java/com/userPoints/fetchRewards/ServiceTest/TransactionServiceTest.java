@@ -42,14 +42,20 @@ public class TransactionServiceTest {
 	@MockBean
     private TransactionRepository repository;
 	
+	List<String> transactionsgetBalance = new ArrayList<>();
+	List<Transaction> t = new ArrayList<>();
+	Transaction transaction = new Transaction();
+	
 	@Before
 	public void setup() {
-		List<Transaction> t = new ArrayList<>();
 		
-		List<String> transactionsgetBalance = new ArrayList<>();
-		transactionsgetBalance.add(getTestTransaction().toString());
+		Transaction t1 = getTestTransaction();
+		t.add(t1);
+		transactionsgetBalance.add(t1.getPayer() + ", " + t1.getPoints());
 		
 		Mockito.when(repository.getBalance()).thenReturn(transactionsgetBalance);
+		
+		repository.addTransaction(t1);
 		
 		Mockito.when(repository.addTransaction(transaction)).thenReturn(500);
 		
@@ -60,11 +66,9 @@ public class TransactionServiceTest {
     public void cleanup() {
     }
 	
-	Transaction transaction = new Transaction();
-	
 	public Transaction getTestTransaction() {
 		transaction.setDate(TransactionController.convertDateFormat("12/5 5PM"));
-		transaction.setId("3");
+		transaction.setId("3TEST");
 		transaction.setPayer("TestPayer");
 		transaction.setPoints(500);
 		
@@ -79,12 +83,6 @@ public class TransactionServiceTest {
 	@Test
 	public void addingPointTest() {
 		
-		Transaction transaction = new Transaction();
-		transaction.setDate(TransactionController.convertDateFormat("12/5 5PM"));
-		transaction.setId("3");
-		transaction.setPayer("TestPayer");
-		transaction.setPoints(500);
-		
 		int points = service.addPoints(getTestTransaction());
 		
 		Assert.assertEquals(500, points);
@@ -92,11 +90,11 @@ public class TransactionServiceTest {
 	
 	@Test
 	public void deductPointsTest() {
-		Transaction t = new Transaction();
-		t.setPayer("Test");
-		t.setPoints(-300);
-		t.setDate(TransactionController.convertDateFormat("12/5 5PM"));
+		List<String> x = service.deductPoints(300);
 		
-		Assert.assertEquals(200, service.addPoints(t));
+		List<String> expectedDeduction = new ArrayList<>();
+		expectedDeduction.add("TestPayer, -300, now");
+		
+		Assert.assertEquals(expectedDeduction, x);
 	}
 }

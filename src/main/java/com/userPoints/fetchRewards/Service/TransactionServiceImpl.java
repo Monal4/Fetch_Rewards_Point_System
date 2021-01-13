@@ -88,7 +88,6 @@ public class TransactionServiceImpl implements TransactionService{
 				}else {
 					transaction.setPoints(difference);
 				}
-				System.out.println(transaction.getPoints());
 				repository.addTransaction(transaction);
 				
 				sb.append(transaction.getPayer());
@@ -104,7 +103,6 @@ public class TransactionServiceImpl implements TransactionService{
 				
 				points -= actualPoints;
 				transaction.setPoints(0);
-				System.out.println(transaction.getPoints());
 				repository.addTransaction(transaction);
 				
 				sb.append(transaction.getPayer());
